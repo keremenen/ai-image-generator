@@ -4,6 +4,7 @@ import Home from './pages/Home'
 import Navbar from './components/Navbar'
 import { ThemeProvider } from '@mui/material'
 import theme from './themes/theme'
+import Footer from './components/Footer'
 
 function App() {
 	return (
@@ -17,6 +18,7 @@ function App() {
 							element={<Home />}
 						/>
 					</Routes>
+					<Footer />
 				</BrowserRouter>
 			</ThemeProvider>
 		</>
