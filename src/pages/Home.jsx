@@ -87,10 +87,11 @@ const Home = () => {
 			</Box>
 			<Box mt={8}>
 				<Typography
-					variant={'h4'}
+					mb={4}
+					variant={'h5'}
 					sx={{ textAlign: 'center' }}
 				>
-					Enjoy ;)
+					Generated images:
 				</Typography>
 				<Grid
 					container
