@@ -6,6 +6,7 @@ import { ThemeProvider } from '@mui/material'
 import theme from './themes/theme'
 import Footer from './components/Footer'
 import Login from './pages/Login'
+import Signup from './pages/Signup'
 
 function App() {
 	return (
@@ -21,6 +22,10 @@ function App() {
 						<Route
 							path={'/login'}
 							element={<Login />}
+						/>
+						<Route
+							path={'/signup'}
+							element={<Signup />}
 						/>
 					</Routes>
 					{/* <Footer /> */}
