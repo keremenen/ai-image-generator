@@ -9,12 +9,19 @@ import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
 import HttpsOutlinedIcon from '@mui/icons-material/HttpsOutlined'
 import { useTheme } from '@mui/material'
 import { useState } from 'react'
+import useSignup from '../hooks/useSignup'
 
 const Signup = () => {
 	const theme = useTheme()
 
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const { signUp, error } = useSignup()
+
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		signUp(email, password)
+	}
 
 	return (
 		<Container
@@ -49,6 +56,7 @@ const Signup = () => {
 				<Box
 					component={'form'}
 					mt={2}
+					onSubmit={handleSubmit}
 				>
 					<TextField
 						margin={'normal'}
@@ -104,6 +112,7 @@ const Signup = () => {
 						}}
 					>
 						<Button
+							type={'submit'}
 							size={'large'}
 							color={'info'}
 							variant={'contained'}
@@ -113,6 +122,7 @@ const Signup = () => {
 						>
 							Sign up
 						</Button>
+						{error && <Typography>{error}</Typography>}
 						<Typography>Already have an account?</Typography>
 						<Button
 							size={'large'}
