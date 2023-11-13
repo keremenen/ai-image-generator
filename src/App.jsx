@@ -13,11 +13,16 @@ function App() {
 		<>
 			<ThemeProvider theme={theme}>
 				<BrowserRouter>
-					{/*  <Navbar /> */}
 					<Routes>
 						<Route
 							path={'/'}
-							element={<Home />}
+							element={
+								<>
+									<Navbar />
+									<Home />
+									<Footer />
+								</>
+							}
 						/>
 						<Route
 							path={'/login'}
@@ -28,7 +33,6 @@ function App() {
 							element={<Signup />}
 						/>
 					</Routes>
-					{/* <Footer /> */}
 				</BrowserRouter>
 			</ThemeProvider>
 		</>
