@@ -4,9 +4,11 @@ import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import useLogout from '../hooks/useLogout'
+import useAuthContext from '../hooks/useAuthContext'
 
 const Navbar = () => {
 	const { logout } = useLogout()
+	const { user } = useAuthContext()
 
 	const handleLogout = (e) => {
 		logout()
@@ -22,6 +24,7 @@ const Navbar = () => {
 				sx={{ justifyContent: 'space-between' }}
 			>
 				<Typography variant={'h6'}>AI IMAGE GENERATOR</Typography>
+				<Typography>Hello, {user.email}</Typography>
 				<Box
 					component='ul'
 					sx={{ display: 'flex', alignItems: 'center', gap: 3 }}
