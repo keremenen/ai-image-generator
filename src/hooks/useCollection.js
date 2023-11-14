@@ -9,7 +9,6 @@ const useCollection = (c) => {
 		const ref = collection(database, c)
 
 		const unsub = onSnapshot(ref, (snapshot) => {
-			console.log(snapshot)
 			let results = []
 			snapshot.docs.forEach((document) => {
 				results.push({ ...document.data(), id: document.id })
