@@ -8,6 +8,7 @@ import Footer from './components/Footer'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import useAuthContext from './hooks/useAuthContext'
+import History from './pages/History'
 
 function App() {
 	const { user, isAuthReady } = useAuthContext()
@@ -39,6 +40,16 @@ function App() {
 							<Route
 								path={'/signup'}
 								element={<Signup />}
+							/>
+							<Route
+								path={'/history'}
+								element={
+									<>
+										<Navbar />
+										<History />
+										<Footer />
+									</>
+								}
 							/>
 						</Routes>
 					</BrowserRouter>
