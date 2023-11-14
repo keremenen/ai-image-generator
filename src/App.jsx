@@ -1,5 +1,5 @@
 import './App.css'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Navbar from './components/Navbar'
 import { ThemeProvider } from '@mui/material'
@@ -7,32 +7,34 @@ import theme from './themes/theme'
 import Footer from './components/Footer'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
-import { AuthContextProvider } from './context/AuthContext'
 import useAuthContext from './hooks/useAuthContext'
 
 function App() {
-	const { user } = useAuthContext()
+	const { user, isAuthReady } = useAuthContext()
 
-	console.log(user)
 	return (
 		<>
-			<ThemeProvider theme={theme}>
-				<AuthContextProvider>
+			{isAuthReady && (
+				<ThemeProvider theme={theme}>
 					<BrowserRouter>
 						<Routes>
 							<Route
 								path={'/'}
 								element={
-									<>
-										<Navbar />
-										<Home />
-										<Footer />
-									</>
+									user ? (
+										<>
+											<Navbar />
+											<Home />
+											<Footer />
+										</>
+									) : (
+										<Navigate to={'/login'} />
+									)
 								}
 							/>
 							<Route
 								path={'/login'}
-								element={<Login />}
+								element={user ? <Navigate to={'/'} /> : <Login />}
 							/>
 							<Route
 								path={'/signup'}
@@ -40,8 +42,8 @@ function App() {
 							/>
 						</Routes>
 					</BrowserRouter>
-				</AuthContextProvider>
-			</ThemeProvider>
+				</ThemeProvider>
+			)}
 		</>
 	)
 }

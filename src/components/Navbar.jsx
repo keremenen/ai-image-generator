@@ -3,8 +3,15 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+import useLogout from '../hooks/useLogout'
 
 const Navbar = () => {
+	const { logout } = useLogout()
+
+	const handleLogout = (e) => {
+		logout()
+	}
+
 	return (
 		<AppBar
 			position={'static'}
@@ -23,7 +30,12 @@ const Navbar = () => {
 
 					<Button disabled>Settings</Button>
 
-					<Button variant={'contained'}>Logout</Button>
+					<Button
+						variant={'contained'}
+						onClick={handleLogout}
+					>
+						Logout
+					</Button>
 				</Box>
 			</Toolbar>
 		</AppBar>
