@@ -5,6 +5,8 @@ import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
+import { useState } from 'react'
+import useAddHistoryEntry from '../hooks/useAddHistoryEntry'
 
 const images = [
 	{
@@ -42,6 +44,14 @@ const images = [
 ]
 
 const Home = () => {
+	const [prompt, setPrompt] = useState('')
+
+	const { addHistoryEntry } = useAddHistoryEntry()
+
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		addHistoryEntry(prompt)
+	}
 	return (
 		<Container
 			component={'main'}
@@ -58,7 +68,9 @@ const Home = () => {
 			>
 				<TextField
 					id='prompt'
+					value={prompt}
 					variant={'outlined'}
+					onChange={(e) => setPrompt(e.target.value)}
 					label={'Type what you want to generate'}
 					fullWidth
 					helperText={
@@ -68,6 +80,7 @@ const Home = () => {
 				/>
 				<Tooltip title='It will generate 9 images with a given prompt'>
 					<Button
+						onClick={handleSubmit}
 						size={'large'}
 						variant={'outlined'}
 						color={'success'}
