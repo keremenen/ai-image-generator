@@ -9,12 +9,19 @@ import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
 import HttpsOutlinedIcon from '@mui/icons-material/HttpsOutlined'
 import { useTheme } from '@mui/material'
 import { useState } from 'react'
+import useLogin from '../hooks/useLogin'
 
 const Login = () => {
 	const theme = useTheme()
 
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const { login, error } = useLogin()
+
+	const handleLogin = (e) => {
+		e.preventDefault()
+		login(email, password)
+	}
 
 	return (
 		<Container
@@ -48,6 +55,7 @@ const Login = () => {
 				<Divider />
 				<Box
 					component={'form'}
+					onSubmit={handleLogin}
 					mt={2}
 				>
 					<TextField
@@ -105,6 +113,7 @@ const Login = () => {
 					>
 						<Button
 							size={'large'}
+							type={'submit'}
 							color={'info'}
 							variant={'contained'}
 							sx={{
@@ -113,6 +122,7 @@ const Login = () => {
 						>
 							Login
 						</Button>
+						{error && <Typography>{error}</Typography>}
 						<Typography>Dont have an account?</Typography>
 						<Button
 							size={'large'}

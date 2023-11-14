@@ -8,10 +8,10 @@ export const useSignup = () => {
 	const { dispatch } = useAuthContext()
 
 	const signUp = (email, password) => {
+		setError(null)
 		createUserWithEmailAndPassword(auth, email, password)
 			.then((response) => {
 				dispatch({ type: 'SIGNUP', payload: response.user })
-				console.log(`Signed up! Response: ${response.user}`)
 			})
 			.catch((error) => {
 				setError(error.message)

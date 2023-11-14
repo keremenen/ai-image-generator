@@ -8,8 +8,12 @@ import Footer from './components/Footer'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import { AuthContextProvider } from './context/AuthContext'
+import useAuthContext from './hooks/useAuthContext'
 
 function App() {
+	const { user } = useAuthContext()
+
+	console.log(user)
 	return (
 		<>
 			<ThemeProvider theme={theme}>
