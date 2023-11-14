@@ -104,6 +104,7 @@ const Home = () => {
 								item
 								xs={3}
 								sx={{ height: 240 }}
+								key={image.id}
 							>
 								<Box
 									component={'img'}
