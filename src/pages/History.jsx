@@ -5,7 +5,7 @@ const History = () => {
 	const { data } = useCollection('history')
 
 	console.log(data)
-	return <div>{data && data.map((document) => <p>{document.prompt}</p>)}</div>
+	return <div>{data && data.map((document) => <p>{document.doc}</p>)}</div>
 }
 
 export default History

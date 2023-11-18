@@ -6,7 +6,7 @@ import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 import { useState } from 'react'
-import useAddHistoryEntry from '../hooks/useAddHistoryEntry'
+import { useFirestore } from '../hooks/useFirestore'
 
 const images = [
 	{
@@ -45,13 +45,19 @@ const images = [
 
 const Home = () => {
 	const [prompt, setPrompt] = useState('')
+	const { addDocument, response } = useFirestore('history')
 
-	const { addHistoryEntry } = useAddHistoryEntry()
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		addHistoryEntry(prompt)
+		console.log('added')
+		addDocument(prompt)
+		console.log('Is Penging: ' + response.isPending)
+		console.log('Success: ' + response.success)
+		console.log('Error: ' + response.error)
+		console.log('Document: ' + response.document)
 	}
+
 	return (
 		<Container
 			component={'main'}
