@@ -1,7 +1,7 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Navbar from './components/Navbar'
-import { ThemeProvider } from '@mui/material'
+import { CssBaseline, ThemeProvider } from '@mui/material'
 import theme from './themes/theme'
 import Footer from './components/Footer'
 import Login from './pages/Login'
@@ -17,6 +17,7 @@ function App() {
 		<>
 			{isAuthReady && (
 				<ThemeProvider theme={theme}>
+					<CssBaseline />
 					<BrowserRouter>
 						<Layout>
 							<Routes>

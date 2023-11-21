@@ -1,4 +1,4 @@
-import { Box, Container, Divider, Typography } from '@mui/material'
+import { Box, Container, Divider, Paper, Typography } from '@mui/material'
 import useCollection from '../hooks/useCollection'
 
 const images = [
@@ -44,12 +44,27 @@ const History = () => {
 			maxWidth={'lg'}
 			component={'main'}
 		>
-			<Typography color={'primary'}>elo</Typography>
 			{data &&
 				data.map((document) => (
-					<Box>
-						<span>Search phrase:</span>
-						{document.doc}
+					<Paper
+						variant={'outlined'}
+						square={false}
+						elevation={1}
+						sx={{ marginY: 2, padding: 4 }}
+					>
+						<Typography
+							color={'secondary'}
+							variant={'body2'}
+						>
+							Search phrase:
+						</Typography>
+						<Typography
+							color={'primary'}
+							fontWeight={900}
+							fontSize={18}
+						>
+							{document.doc}
+						</Typography>
 						<p>Date:</p>
 						<Divider />
 						<Box
@@ -70,7 +85,7 @@ const History = () => {
 									/>
 								))}
 						</Box>
-					</Box>
+					</Paper>
 				))}
 		</Container>
 	)

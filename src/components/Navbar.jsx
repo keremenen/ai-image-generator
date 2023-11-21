@@ -6,6 +6,7 @@ import Button from '@mui/material/Button'
 import useLogout from '../hooks/useLogout'
 import useAuthContext from '../hooks/useAuthContext'
 import theme from '../themes/theme'
+import { Link } from 'react-router-dom'
 
 const Navbar = () => {
 	const { logout } = useLogout()
@@ -24,14 +25,22 @@ const Navbar = () => {
 				component={'nav'}
 				sx={{ justifyContent: 'space-between' }}
 			>
-				<Typography variant={'h6'}>AI IMAGE GENERATOR</Typography>
+				<Link to={'/'}>
+					<Typography
+						variant={'h6'}
+						color={'primary'}
+					>
+						AI IMAGE GENERATOR
+					</Typography>
+				</Link>
 				<Typography>Hello, {user.email}</Typography>
 				<Box
 					component='ul'
 					sx={{ display: 'flex', alignItems: 'center', gap: 3 }}
 				>
-					<Button>History</Button>
-
+					<Link to={'/history'}>
+						<Button>History</Button>
+					</Link>
 					<Button disabled>Settings</Button>
 
 					<Button
