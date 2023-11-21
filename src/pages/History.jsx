@@ -1,5 +1,6 @@
 import { Box, Container, Divider, Paper, Typography } from '@mui/material'
 import useCollection from '../hooks/useCollection'
+import { formatDistanceToNow } from 'date-fns'
 
 const images = [
 	{
@@ -38,7 +39,7 @@ const images = [
 
 const History = () => {
 	const { data } = useCollection('history')
-
+	// console.log(data[0].createdAt.toDateString())
 	return (
 		<Container
 			maxWidth={'lg'}
@@ -55,6 +56,7 @@ const History = () => {
 						<Typography
 							color={'secondary'}
 							variant={'body2'}
+							fontWeight={300}
 						>
 							Search phrase:
 						</Typography>
@@ -63,9 +65,25 @@ const History = () => {
 							fontWeight={900}
 							fontSize={18}
 						>
-							{document.doc}
+							{document.prompt}
 						</Typography>
-						<p>Date:</p>
+						<Typography
+							sx={{ marginTop: 2, marginBottom: 2 }}
+							color={'secondary'}
+							fontWeight={300}
+							variant={'body2'}
+							component={'p'}
+						>
+							Created:{' '}
+							<Typography
+								component={'span'}
+								fontWeight={500}
+							>
+								{formatDistanceToNow(document.createdAt.toDate(), {
+									addSuffix: true,
+								})}
+							</Typography>
+						</Typography>
 						<Divider />
 						<Box
 							component={'div'}

@@ -51,7 +51,7 @@ const Home = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		console.log('added')
-		addDocument(prompt)
+		addDocument({ prompt })
 		console.log('Is Penging: ' + response.isPending)
 		console.log('Success: ' + response.success)
 		console.log('Error: ' + response.error)
