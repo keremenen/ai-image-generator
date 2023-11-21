@@ -12,6 +12,7 @@ import Layout from './components/Layout'
 
 function App() {
 	const { user, isAuthReady } = useAuthContext()
+	console.log(user)
 
 	return (
 		<>

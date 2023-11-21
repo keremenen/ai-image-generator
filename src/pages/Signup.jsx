@@ -7,6 +7,7 @@ import Divider from '@mui/material/Divider'
 import InputAdornment from '@mui/material/InputAdornment'
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
 import HttpsOutlinedIcon from '@mui/icons-material/HttpsOutlined'
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd'
 import { useTheme } from '@mui/material'
 import { useState } from 'react'
 import useSignup from '../hooks/useSignup'
@@ -16,11 +17,12 @@ const Signup = () => {
 
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+	const [displayName, setDisplayName] = useState('')
 	const { signUp, error } = useSignup()
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		signUp(email, password)
+		signUp(displayName, email, password)
 	}
 
 	return (
@@ -58,6 +60,25 @@ const Signup = () => {
 					mt={2}
 					onSubmit={handleSubmit}
 				>
+					<TextField
+						margin={'normal'}
+						label={'Display name'}
+						variant={'outlined'}
+						fullWidth
+						name={'name'}
+						value={displayName}
+						onChange={(e) => setDisplayName(e.target.value)}
+						InputProps={{
+							sx: {
+								borderRadius: 4,
+							},
+							endAdornment: (
+								<InputAdornment position='end'>
+									<AssignmentIndIcon />
+								</InputAdornment>
+							),
+						}}
+					/>
 					<TextField
 						margin={'normal'}
 						label={'Email'}

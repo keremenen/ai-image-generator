@@ -33,7 +33,7 @@ const Navbar = () => {
 						AI IMAGE GENERATOR
 					</Typography>
 				</Link>
-				<Typography>Hello, {user.email}</Typography>
+				<Typography>Hello, {user.displayName}</Typography>
 				<Box
 					component='ul'
 					sx={{ display: 'flex', alignItems: 'center', gap: 3 }}
