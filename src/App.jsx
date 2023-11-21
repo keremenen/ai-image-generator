@@ -46,11 +46,15 @@ function App() {
 								<Route
 									path={'/history'}
 									element={
-										<>
-											<Navbar />
-											<History />
-											<Footer />
-										</>
+										user ? (
+											<>
+												<Navbar />
+												<History />
+												<Footer />
+											</>
+										) : (
+											<Navigate to={'/'} />
+										)
 									}
 								/>
 							</Routes>

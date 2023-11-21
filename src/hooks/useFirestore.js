@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useReducer } from 'react'
 import { database, timestamp } from '../firebase/config'
-import { addDoc, collection, deleteDoc } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc } from 'firebase/firestore'
 import useAuthContext from './useAuthContext'
 
 const initialState = {
@@ -82,7 +82,8 @@ export const useFirestore = (col) => {
 		dispatch({ type: 'isPending' })
 
 		try {
-			const deletedDocument = deleteDoc(ref, docID)
+			let ref = doc(database, col, docID)
+			const deletedDocument = deleteDoc(ref)
 			if (!isCancelled) {
 				dispatch({ type: 'DELETED_DOCUMENT', payload: deletedDocument })
 			}
