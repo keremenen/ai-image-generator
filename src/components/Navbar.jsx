@@ -5,6 +5,7 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import useLogout from '../hooks/useLogout'
 import useAuthContext from '../hooks/useAuthContext'
+import theme from '../themes/theme'
 
 const Navbar = () => {
 	const { logout } = useLogout()
@@ -17,7 +18,7 @@ const Navbar = () => {
 	return (
 		<AppBar
 			position={'static'}
-			sx={{ marginBottom: '40px' }}
+			sx={{ marginBottom: '40px', background: theme.palette.background.paper }}
 		>
 			<Toolbar
 				component={'nav'}

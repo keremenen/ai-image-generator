@@ -1,4 +1,3 @@
-import './App.css'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 import Navbar from './components/Navbar'
@@ -9,6 +8,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import useAuthContext from './hooks/useAuthContext'
 import History from './pages/History'
+import Layout from './components/Layout'
 
 function App() {
 	const { user, isAuthReady } = useAuthContext()
@@ -18,40 +18,42 @@ function App() {
 			{isAuthReady && (
 				<ThemeProvider theme={theme}>
 					<BrowserRouter>
-						<Routes>
-							<Route
-								path={'/'}
-								element={
-									user ? (
+						<Layout>
+							<Routes>
+								<Route
+									path={'/'}
+									element={
+										user ? (
+											<>
+												<Navbar />
+												<Home />
+												<Footer />
+											</>
+										) : (
+											<Navigate to={'/login'} />
+										)
+									}
+								/>
+								<Route
+									path={'/login'}
+									element={user ? <Navigate to={'/'} /> : <Login />}
+								/>
+								<Route
+									path={'/signup'}
+									element={<Signup />}
+								/>
+								<Route
+									path={'/history'}
+									element={
 										<>
 											<Navbar />
-											<Home />
+											<History />
 											<Footer />
 										</>
-									) : (
-										<Navigate to={'/login'} />
-									)
-								}
-							/>
-							<Route
-								path={'/login'}
-								element={user ? <Navigate to={'/'} /> : <Login />}
-							/>
-							<Route
-								path={'/signup'}
-								element={<Signup />}
-							/>
-							<Route
-								path={'/history'}
-								element={
-									<>
-										<Navbar />
-										<History />
-										<Footer />
-									</>
-								}
-							/>
-						</Routes>
+									}
+								/>
+							</Routes>
+						</Layout>
 					</BrowserRouter>
 				</ThemeProvider>
 			)}

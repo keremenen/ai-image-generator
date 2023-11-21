@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 import { useState } from 'react'
 import { useFirestore } from '../hooks/useFirestore'
+import theme from '../themes/theme'
 
 const images = [
 	{
@@ -46,7 +47,6 @@ const images = [
 const Home = () => {
 	const [prompt, setPrompt] = useState('')
 	const { addDocument, response } = useFirestore('history')
-
 
 	const handleSubmit = (e) => {
 		e.preventDefault()

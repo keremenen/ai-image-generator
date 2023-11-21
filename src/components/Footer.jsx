@@ -1,15 +1,21 @@
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import theme from '../themes/theme'
+import { Paper } from '@mui/material'
 
 const currentYear = new Date().getFullYear()
 const Footer = () => {
 	return (
-		<Box
+		<Paper
 			component={'footer'}
-			position={'absolute'}
-			sx={{ width: '100%', bottom: 0, borderTop: '1px solid #313131' }}
-			py={2}
+			sx={{
+				width: '100%',
+				position: 'absolute',
+				paddingY: 1,
+				bottom: 0,
+				borderTop: '1px solid #313131',
+			}}
 		>
 			<Container>
 				<Typography
@@ -20,7 +26,7 @@ const Footer = () => {
 					Copyright by Przemysław Kitowski / {currentYear}
 				</Typography>
 			</Container>
-		</Box>
+		</Paper>
 	)
 }
 
