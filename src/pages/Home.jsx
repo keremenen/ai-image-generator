@@ -5,59 +5,61 @@ import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFirestore } from '../hooks/useFirestore'
-import theme from '../themes/theme'
-
-const images = [
-	{
-		id: 1,
-		url: 'https://img.freepik.com/premium-photo/mountain-lake-with-mountain-background_901003-24960.jpg',
-	},
-	{
-		id: 2,
-		url: 'https://img.freepik.com/premium-photo/mountain-lake-with-mountain-background_901003-24960.jpg',
-	},
-	{
-		id: 3,
-		url: 'https://img.freepik.com/premium-photo/mountain-lake-with-mountain-background_901003-24960.jpg',
-	},
-	{
-		id: 4,
-		url: 'https://img.freepik.com/premium-photo/mountain-lake-with-mountain-background_901003-24960.jpg',
-	},
-	{
-		id: 5,
-		url: 'https://img.freepik.com/premium-photo/mountain-lake-with-mountain-background_901003-24960.jpg',
-	},
-	{
-		id: 6,
-		url: 'https://img.freepik.com/premium-photo/mountain-lake-with-mountain-background_901003-24960.jpg',
-	},
-	{
-		id: 7,
-		url: 'https://img.freepik.com/premium-photo/mountain-lake-with-mountain-background_901003-24960.jpg',
-	},
-	{
-		id: 8,
-		url: 'https://img.freepik.com/premium-photo/mountain-lake-with-mountain-background_901003-24960.jpg',
-	},
-]
 
 const Home = () => {
 	const [prompt, setPrompt] = useState('')
-	const { addDocument, response } = useFirestore('history')
+	const [images, setImages] = useState([])
 
-	const handleSubmit = (e) => {
-		e.preventDefault()
-		console.log('added')
-		addDocument({ prompt })
-		console.log('Is Penging: ' + response.isPending)
-		console.log('Success: ' + response.success)
-		console.log('Error: ' + response.error)
-		console.log('Document: ' + response.document)
+	const imageGenerator = async () => {
+		if (!prompt) return
+		try {
+			const response = await fetch(
+				'https://api.openai.com/v1/images/generations ',
+				{
+					method: 'POST',
+					headers: {
+						'Content-type': 'application/json',
+						Authorization: 'Bearer sk-xxx', // change xxx to API Key
+					},
+					body: JSON.stringify({
+						prompt: `${prompt}`,
+						n: 5,
+						model: 'dall-e-2',
+						size: '1024x1024',
+					}),
+				}
+			)
+
+			const data = await response.json()
+			setImages(data.data)
+
+			const imagesToAdd = data.data.map((image) => ({
+				url: image.url,
+				id: Math.floor(Math.random() * 1_000_000),
+			}))
+
+			//Adding images to firebase history
+			addDocument({
+				prompt,
+				images: imagesToAdd,
+			})
+		} catch (error) {
+			console.log(`error: ${error}`)
+		}
 	}
 
+	const { addDocument, response } = useFirestore('history')
+
+	const handleSubmit = async (e) => {
+		e.preventDefault()
+		imageGenerator()
+	}
+
+	useEffect(() => {
+		console.log(images)
+	}, [images])
 	return (
 		<Container
 			component={'main'}

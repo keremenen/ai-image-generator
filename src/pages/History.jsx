@@ -12,41 +12,6 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import styled from '@emotion/styled'
 import { useFirestore } from '../hooks/useFirestore'
 
-const images = [
-	{
-		id: 1,
-		url: 'https://img.freepik.com/premium-photo/mountain-lake-with-mountain-background_901003-24960.jpg',
-	},
-	{
-		id: 2,
-		url: 'https://img.freepik.com/premium-photo/mountain-lake-with-mountain-background_901003-24960.jpg',
-	},
-	{
-		id: 3,
-		url: 'https://img.freepik.com/premium-photo/mountain-lake-with-mountain-background_901003-24960.jpg',
-	},
-	{
-		id: 4,
-		url: 'https://img.freepik.com/premium-photo/mountain-lake-with-mountain-background_901003-24960.jpg',
-	},
-	{
-		id: 5,
-		url: 'https://img.freepik.com/premium-photo/mountain-lake-with-mountain-background_901003-24960.jpg',
-	},
-	{
-		id: 6,
-		url: 'https://img.freepik.com/premium-photo/mountain-lake-with-mountain-background_901003-24960.jpg',
-	},
-	{
-		id: 7,
-		url: 'https://img.freepik.com/premium-photo/mountain-lake-with-mountain-background_901003-24960.jpg',
-	},
-	{
-		id: 8,
-		url: 'https://img.freepik.com/premium-photo/mountain-lake-with-mountain-background_901003-24960.jpg',
-	},
-]
-
 const SingleImageItem = styled(Box)(({ theme }) => ({
 	width: '100%',
 	transition: 'ease-in-out 200ms',
@@ -68,7 +33,6 @@ const History = () => {
 		console.log('Document: ' + response.document)
 	}
 
-	console.log(data)
 	return (
 		<Container
 			maxWidth={'lg'}
@@ -144,12 +108,12 @@ const History = () => {
 								gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr',
 							}}
 						>
-							{images &&
-								images.map((image) => (
+							{document.images &&
+								document.images.map((image) => (
 									<SingleImageItem
 										component={'img'}
-										key={image.id}
 										src={image.url}
+										key={image.id}
 									/>
 								))}
 						</Box>
