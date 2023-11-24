@@ -12,6 +12,7 @@ const Home = () => {
 	const [prompt, setPrompt] = useState('')
 	const [images, setImages] = useState([])
 
+	console.log(import.meta.env.VITE_DALLE_API_KEY)
 	const imageGenerator = async () => {
 		if (!prompt) return
 		try {
@@ -21,12 +22,12 @@ const Home = () => {
 					method: 'POST',
 					headers: {
 						'Content-type': 'application/json',
-						Authorization: 'Bearer sk-xxx', // change xxx to API Key
+						Authorization: `Bearer ${import.meta.env.VITE_DALLE_API_KEY}`,
 					},
 					body: JSON.stringify({
 						prompt: `${prompt}`,
-						n: 5,
-						model: 'dall-e-2',
+						n: 1,
+						model: 'dall-e-3',
 						size: '1024x1024',
 					}),
 				}
