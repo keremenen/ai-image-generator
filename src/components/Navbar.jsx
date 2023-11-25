@@ -7,6 +7,8 @@ import useLogout from '../hooks/useLogout'
 import useAuthContext from '../hooks/useAuthContext'
 import theme from '../themes/theme'
 import { Link } from 'react-router-dom'
+import LogoutIcon from '@mui/icons-material/Logout'
+import { IconButton } from '@mui/material'
 
 const Navbar = () => {
 	const { logout } = useLogout()
@@ -43,12 +45,9 @@ const Navbar = () => {
 					</Link>
 					<Button disabled>Settings</Button>
 
-					<Button
-						variant={'contained'}
-						onClick={handleLogout}
-					>
-						Logout
-					</Button>
+					<IconButton onClick={handleLogout}>
+						<LogoutIcon />
+					</IconButton>
 				</Box>
 			</Toolbar>
 		</AppBar>

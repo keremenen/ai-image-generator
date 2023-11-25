@@ -8,7 +8,6 @@ export const Layout = ({ children }) => {
 				background: theme.palette.background.default,
 				minHeight: '100vh',
 				position: 'relative',
-				paddingBottom: 12,
 			}}
 		>
 			{children}
