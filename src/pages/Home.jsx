@@ -3,70 +3,31 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
+
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
-import { useEffect, useState } from 'react'
-import { useFirestore } from '../hooks/useFirestore'
+import { useState } from 'react'
+import useDalle from '../hooks/useDalle'
+import { MagicSpinner } from 'react-spinners-kit'
+import { Alert, AlertTitle, Divider, useTheme } from '@mui/material'
 
 const Home = () => {
 	const [prompt, setPrompt] = useState('')
-	const [images, setImages] = useState([])
-
-	console.log(import.meta.env.VITE_DALLE_API_KEY)
-	const imageGenerator = async () => {
-		if (!prompt) return
-		try {
-			const response = await fetch(
-				'https://api.openai.com/v1/images/generations ',
-				{
-					method: 'POST',
-					headers: {
-						'Content-type': 'application/json',
-						Authorization: `Bearer ${import.meta.env.VITE_DALLE_API_KEY}`,
-					},
-					body: JSON.stringify({
-						prompt: `${prompt}`,
-						n: 1,
-						model: 'dall-e-3',
-						size: '1024x1024',
-					}),
-				}
-			)
-
-			const data = await response.json()
-			setImages(data.data)
-
-			const imagesToAdd = data.data.map((image) => ({
-				url: image.url,
-				id: Math.floor(Math.random() * 1_000_000),
-			}))
-
-			//Adding images to firebase history
-			addDocument({
-				prompt,
-				images: imagesToAdd,
-			})
-		} catch (error) {
-			console.log(`error: ${error}`)
-		}
-	}
-
-	const { addDocument, response } = useFirestore('history')
+	const theme = useTheme()
+	const { generateImages, response } = useDalle()
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-		imageGenerator()
+		generateImages(prompt)
 	}
 
-	useEffect(() => {
-		console.log(images)
-	}, [images])
 	return (
 		<Container
 			component={'main'}
 			maxWidth={'lg'}
 		>
 			<Box
+				my={10}
 				component={'form'}
 				sx={{
 					display: 'flex',
@@ -107,38 +68,71 @@ const Home = () => {
 					</Button>
 				</Tooltip>
 			</Box>
-			<Box mt={8}>
-				<Typography
-					mb={4}
-					variant={'h5'}
-					sx={{ textAlign: 'center' }}
+			{response.isLoading && (
+				<Box
+					sx={{
+						display: 'flex',
+						justifyContent: 'center',
+						alignItems: 'center',
+					}}
 				>
-					Generated images:
-				</Typography>
-				<Grid
-					container
-					rowSpacing={4}
-					columnSpacing={4}
-				>
-					{images &&
-						images.map((image) => (
-							<Grid
-								item
-								xs={3}
-								sx={{ height: 240 }}
-								key={image.id}
-							>
-								<Box
-									component={'img'}
-									key={image.id}
-									src={image.url}
-									alt=''
-									sx={{ objectFit: 'cover', width: '100%', height: '100%' }}
-								/>
-							</Grid>
-						))}
-				</Grid>
-			</Box>
+					<MagicSpinner
+						// size={30}
+						color={theme.palette.primary.main}
+						loading={response.isLoading}
+					/>
+				</Box>
+			)}
+
+			{response.error && (
+				<Box>
+					<Alert severity='error'>
+						<AlertTitle>Error</AlertTitle>
+						{response.error}
+					</Alert>
+				</Box>
+			)}
+
+			{response.success && (
+				<>
+					<Divider />
+					<Box mt={4}>
+						<Typography
+							variant={'h5'}
+							sx={{ textAlign: 'center' }}
+						>
+							Generated images:
+						</Typography>
+						<Grid
+							container
+							columnSpacing={2}
+							justifyContent={'space-around'}
+						>
+							{response.images &&
+								response.images.map((image) => (
+									<Grid
+										item
+										xs={2}
+										sx={{ height: 260 }}
+										key={image.id}
+									>
+										<Box
+											component={'img'}
+											key={image.id}
+											src={image.url}
+											alt=''
+											sx={{
+												objectFit: 'contain',
+												width: '100%',
+												height: '100%',
+											}}
+										/>
+									</Grid>
+								))}
+						</Grid>
+					</Box>
+				</>
+			)}
 		</Container>
 	)
 }
