@@ -1,4 +1,5 @@
 import {
+	Alert,
 	Box,
 	Container,
 	Divider,
@@ -27,10 +28,6 @@ const History = () => {
 
 	const handleDelete = (id) => {
 		deleteDocument(id)
-		console.log('Is Penging: ' + response.isPending)
-		console.log('Success: ' + response.success)
-		console.log('Error: ' + response.error)
-		console.log('Document: ' + response.document)
 	}
 
 	return (
@@ -38,6 +35,12 @@ const History = () => {
 			maxWidth={'lg'}
 			component={'main'}
 		>
+			<Alert severity={'info'}>
+				The url addresses of images created with Dall-E are available for
+				approximately 1 hour. <br />
+				After this time, they will be deleted and will not be available even
+				from the profile history.
+			</Alert>
 			{data &&
 				data.map((document) => (
 					<Paper
@@ -103,14 +106,15 @@ const History = () => {
 						<Box
 							component={'div'}
 							sx={{
-								display: 'grid',
-								gap: '20px',
-								gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr',
+								display: 'flex',
+								justifyContent: 'space-between',
+								flexWrap: 'wrap',
 							}}
 						>
 							{document.images &&
 								document.images.map((image) => (
 									<SingleImageItem
+										sx={{ maxWidth: '180px' }}
 										component={'img'}
 										src={image.url}
 										key={image.id}
