@@ -3,18 +3,20 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
-
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 import { useState } from 'react'
 import useDalle from '../hooks/useDalle'
 import { MagicSpinner } from 'react-spinners-kit'
 import { Alert, AlertTitle, Divider, useTheme } from '@mui/material'
+import { createPortal } from 'react-dom'
+import FsLightbox from 'fslightbox-react'
 
 const Home = () => {
 	const [prompt, setPrompt] = useState('')
 	const theme = useTheme()
 	const { generateImages, response } = useDalle()
+	const [lightboxOpen, setLightboxOpen] = useState(false)
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
@@ -108,27 +110,42 @@ const Home = () => {
 							columnSpacing={2}
 							justifyContent={'space-around'}
 						>
-							{response.images &&
-								response.images.map((image) => (
-									<Grid
-										item
-										xs={2}
-										sx={{ height: 260 }}
-										key={image.id}
-									>
-										<Box
-											component={'img'}
+							{response.images && (
+								<>
+									{response.images.map((image) => (
+										<Grid
+											item
+											xs={2}
+											sx={{ height: 260 }}
 											key={image.id}
-											src={image.url}
-											alt=''
-											sx={{
-												objectFit: 'contain',
-												width: '100%',
-												height: '100%',
-											}}
-										/>
-									</Grid>
-								))}
+										>
+											<Box
+												component={'img'}
+												key={image.id}
+												src={image.url}
+												onClick={() => setLightboxOpen(!lightboxOpen)}
+												alt=''
+												sx={{
+													objectFit: 'contain',
+													width: '100%',
+													height: '100%',
+												}}
+											/>
+										</Grid>
+									))}
+									{createPortal(
+										<>
+											<FsLightbox
+												toggler={lightboxOpen}
+												type={'image'}
+												types={['image', 'image', 'image', 'image', 'image']}
+												sources={response.images.map((image) => image.url)}
+											/>
+										</>,
+										document.body
+									)}
+								</>
+							)}
 						</Grid>
 					</Box>
 				</>
