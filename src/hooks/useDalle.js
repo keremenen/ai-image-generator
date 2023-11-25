@@ -41,7 +41,7 @@ const dalleReducer = (state, action) => {
 
 export const useDalle = () => {
 	const [response, dispatch] = useReducer(dalleReducer, initialState)
-	const [isCancelled, setIsCancelled] = useState()
+	const [isCancelled, setIsCancelled] = useState(false)
 
 	const { addDocument } = useFirestore('history')
 
@@ -66,12 +66,11 @@ export const useDalle = () => {
 					}),
 				}
 			)
-
 			const data = await response.json()
+
 			if (!isCancelled) {
 				dispatch({ type: 'IMAGES_GENERATED_SUCCESSFULLY', payload: data.data })
 			}
-
 			const imagesToAdd = data.data.map((image) => ({
 				url: image.url,
 				id: Math.floor(Math.random() * 1_000_000),
@@ -88,9 +87,10 @@ export const useDalle = () => {
 			}
 		}
 	}
+
 	useEffect(() => {
 		return () => {
-			setIsCancelled(true)
+			;() => setIsCancelled(true)
 		}
 	}, [])
 	return { generateImages, response }
