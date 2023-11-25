@@ -33,9 +33,9 @@ const Home = () => {
 				component={'form'}
 				sx={{
 					display: 'flex',
-					alignItems: 'flex-start',
+					flexDirection: 'column',
+					alignItems: 'center',
 					gap: '20px',
-					wordWrap: 'nowrap',
 				}}
 			>
 				<TextField
@@ -48,25 +48,16 @@ const Home = () => {
 					helperText={
 						'Be very detailed in your prompt description. Remember to specify background, art style, camera angles etc.'
 					}
-					size={'normal'}
+					size={'small'}
 				/>
 				<Tooltip title='It will generate 9 images with a given prompt'>
 					<Button
 						onClick={handleSubmit}
-						size={'large'}
+						size={'normal'}
 						variant={'outlined'}
 						color={'success'}
 					>
 						Generate
-					</Button>
-				</Tooltip>
-				<Tooltip title={'It will generate 9 images with a random prompt'}>
-					<Button
-						size={'large'}
-						variant='outlined'
-						color='warning'
-					>
-						Randomize
 					</Button>
 				</Tooltip>
 			</Box>
