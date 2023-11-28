@@ -14,15 +14,7 @@ import FsLightbox from 'fslightbox-react'
 import GenerateForm from '../components/GenerateForm'
 
 const Home = () => {
-	const [prompt, setPrompt] = useState('')
 	const theme = useTheme()
-	const { generateImages, response } = useDalle()
-	const [lightboxOpen, setLightboxOpen] = useState(false)
-
-	const handleSubmit = async (e) => {
-		e.preventDefault()
-		generateImages(prompt)
-	}
 
 	return (
 		<Container

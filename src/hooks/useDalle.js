@@ -1,6 +1,9 @@
 import { useReducer, useState, useEffect } from 'react'
 import { useFirestore } from './useFirestore'
 
+import useAuthContext from './useAuthContext'
+import { timestamp } from '../firebase/config'
+
 const initialState = {
 	isLoading: false,
 	error: false,
@@ -40,6 +43,7 @@ const dalleReducer = (state, action) => {
 }
 
 export const useDalle = () => {
+	const { user } = useAuthContext()
 	const [response, dispatch] = useReducer(dalleReducer, initialState)
 	const [isCancelled, setIsCancelled] = useState(false)
 
@@ -71,6 +75,7 @@ export const useDalle = () => {
 			if (!isCancelled) {
 				dispatch({ type: 'IMAGES_GENERATED_SUCCESSFULLY', payload: data.data })
 			}
+			const createdAt = timestamp.fromDate(new Date())
 			const imagesToAdd = data.data.map((image) => ({
 				url: image.url,
 				id: Math.floor(Math.random() * 1_000_000),
@@ -80,6 +85,8 @@ export const useDalle = () => {
 			addDocument({
 				prompt,
 				images: imagesToAdd,
+				uid: user.uid,
+				createdAt,
 			})
 		} catch (error) {
 			if (isCancelled) {

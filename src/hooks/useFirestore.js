@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useReducer } from 'react'
-import { database, timestamp } from '../firebase/config'
-import { addDoc, collection, deleteDoc, doc } from 'firebase/firestore'
+import { database } from '../firebase/config'
+import { addDoc, collection, deleteDoc, doc, setDoc } from 'firebase/firestore'
 import useAuthContext from './useAuthContext'
 
 const initialState = {
@@ -53,19 +53,26 @@ export const firestoreReducer = (state, action) => {
 export const useFirestore = (col) => {
 	const [response, dispatch] = useReducer(firestoreReducer, initialState)
 	const [isCancelled, setIsCancelled] = useState(false)
-	const { user } = useAuthContext()
-	const ref = collection(database, col)
 
-	//Add document
-	const addDocument = async (doc) => {
-		console.dir(doc)
+	const addDocument = async (newDoc, docID) => {
 		try {
-			const createdAt = timestamp.fromDate(new Date())
-			const addedDocument = await addDoc(ref, {
-				...doc,
-				createdAt,
-				uid: user.uid,
-			})
+			let addedDocument = null
+
+			if (docID) {
+				console.log('user')
+				let ref = doc(database, col, docID)
+				console.log(newDoc)
+				addedDocument = await setDoc(ref, {
+					...newDoc,
+				})
+			} else {
+				console.log('data!')
+				let ref = collection(database, col)
+				console.log(ref)
+				addedDocument = await addDoc(ref, {
+					...newDoc,
+				})
+			}
 
 			if (!isCancelled) {
 				dispatch({ type: 'ADDED_DOCUMENT', payload: addedDocument })

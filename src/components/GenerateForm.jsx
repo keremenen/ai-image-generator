@@ -104,16 +104,16 @@ export const GenerateForm = () => {
 						>
 							{response.images && (
 								<>
-									{response.images.map((image) => (
+									{response.images.map((image, index) => (
 										<Grid
 											item
 											xs={2}
 											sx={{ height: 260 }}
-											key={image.id}
+											key={index}
 										>
 											<Box
 												component={'img'}
-												key={image.id}
+												key={index}
 												src={image.url}
 												onClick={() => setLightboxOpen(!lightboxOpen)}
 												alt=''
