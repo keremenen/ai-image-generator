@@ -4,18 +4,28 @@ import {
 	onSnapshot,
 	orderBy,
 	query,
+	where,
 } from 'firebase/firestore'
 import { database } from '../firebase/config'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-const useCollection = (c) => {
+const useCollection = (c, _q, orderIndex, orderType) => {
 	const [data, setData] = useState(null)
 
-	useEffect(() => {
-		const ref = collection(database, c)
-		const q = query(ref, orderBy('createdAt', 'desc'))
+	const q = useRef(_q).current
 
-		const unsub = onSnapshot(q, (snapshot) => {
+	useEffect(() => {
+		let ref = collection(database, c)
+
+		if (q) {
+			ref = query(ref, where(...q))
+		}
+
+		if (orderIndex && orderType) {
+			ref = query(ref, where(...q), orderBy(orderIndex, orderType))
+		}
+
+		const unsub = onSnapshot(ref, (snapshot) => {
 			let results = []
 			snapshot.docs.forEach((document) => {
 				results.push({ ...document.data(), id: document.id })
@@ -23,7 +33,7 @@ const useCollection = (c) => {
 			setData(results)
 		})
 		return () => unsub()
-	}, [c])
+	}, [c, q])
 
 	return { data }
 }
