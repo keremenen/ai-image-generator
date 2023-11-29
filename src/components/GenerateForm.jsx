@@ -25,8 +25,6 @@ export const GenerateForm = () => {
 		generateImages(prompt)
 	}
 
-	console.log(response)
-
 	return (
 		<>
 			<Box
