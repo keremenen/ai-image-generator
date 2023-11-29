@@ -12,6 +12,7 @@ import { formatDistanceToNow } from 'date-fns'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import styled from '@emotion/styled'
 import { useFirestore } from '../hooks/useFirestore'
+import useAuthContext from '../hooks/useAuthContext'
 
 const SingleImageItem = styled(Box)(({ theme }) => ({
 	width: '100%',
@@ -23,7 +24,13 @@ const SingleImageItem = styled(Box)(({ theme }) => ({
 }))
 
 const History = () => {
-	const { data } = useCollection('history')
+	const { user } = useAuthContext()
+	const { data } = useCollection(
+		'history',
+		['uid', '==', user.uid],
+		'createdAt',
+		'desc'
+	)
 	const { deleteDocument, response } = useFirestore('history')
 
 	const handleDelete = (id) => {

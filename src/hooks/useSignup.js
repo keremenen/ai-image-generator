@@ -18,6 +18,7 @@ export const useSignup = () => {
 				password
 			)
 			await updateProfile(response.user, { displayName })
+			await updateProfile(response.user, { credits: 10 })
 
 			addDocument(
 				{

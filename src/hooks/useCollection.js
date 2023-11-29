@@ -13,6 +13,7 @@ const useCollection = (c, _q, orderIndex, orderType) => {
 	const [data, setData] = useState(null)
 
 	const q = useRef(_q).current
+	console.log(q)
 
 	useEffect(() => {
 		let ref = collection(database, c)
