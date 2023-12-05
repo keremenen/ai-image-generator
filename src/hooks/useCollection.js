@@ -20,11 +20,11 @@ const useCollection = (c, _customQuery, _orderByValue) => {
 		let ref = collection(database, c)
 
 		if (customQuery) {
-			ref = query(ref, where(..._customQuery))
+			ref = query(ref, where(...customQuery))
 		}
 
 		if (orderByValue) {
-			ref = query(ref, orderBy(...orderByValue))
+			ref = query(ref, orderBy(orderByValue, 'desc'))
 		}
 
 		const unsub = onSnapshot(

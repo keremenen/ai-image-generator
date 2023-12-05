@@ -54,37 +54,37 @@ export const useDalle = () => {
 		dispatch({ type: 'IS_LOADING' })
 
 		try {
-			const response = await fetch(
-				'https://api.openai.com/v1/images/generations ',
-				{
-					method: 'POST',
-					headers: {
-						'Content-type': 'application/json',
-						Authorization: `Bearer ${import.meta.env.VITE_DALLE_API_KEY}`,
-					},
-					body: JSON.stringify({
-						prompt: `${prompt}`,
-						n: 5,
-						model: 'dall-e-2',
-						size: '512x512',
-					}),
-				}
-			)
-			const data = await response.json()
+			// const response = await fetch(
+			// 	'https://api.openai.com/v1/images/generations ',
+			// 	{
+			// 		method: 'POST',
+			// 		headers: {
+			// 			'Content-type': 'application/json',
+			// 			Authorization: `Bearer ${import.meta.env.VITE_DALLE_API_KEY}`,
+			// 		},
+			// 		body: JSON.stringify({
+			// 			prompt: `${prompt}`,
+			// 			n: 5,
+			// 			model: 'dall-e-2',
+			// 			size: '512x512',
+			// 		}),
+			// 	}
+			// )
+			// const data = await response.json()
 
-			if (!isCancelled) {
-				dispatch({ type: 'IMAGES_GENERATED_SUCCESSFULLY', payload: data.data })
-			}
+			// if (!isCancelled) {
+			// 	dispatch({ type: 'IMAGES_GENERATED_SUCCESSFULLY', payload: data.data })
+			// }
 			const createdAt = timestamp.fromDate(new Date())
-			const imagesToAdd = data.data.map((image) => ({
-				url: image.url,
-				id: Math.floor(Math.random() * 1_000_000),
-			}))
+			// const imagesToAdd = data.data.map((image) => ({
+			// 	url: image.url,
+			// 	id: Math.floor(Math.random() * 1_000_000),
+			// }))
 
 			//Adding images to firebase history
 			addDocument({
 				prompt,
-				images: imagesToAdd,
+				// images: imagesToAdd,
 				uid: user.uid,
 				createdAt,
 			})
