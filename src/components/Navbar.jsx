@@ -9,10 +9,16 @@ import theme from '../themes/theme'
 import { Link } from 'react-router-dom'
 import LogoutIcon from '@mui/icons-material/Logout'
 import { IconButton } from '@mui/material'
+import useDocument from '../hooks/useDocument'
 
 const Navbar = () => {
 	const { logout } = useLogout()
+
 	const { user } = useAuthContext()
+
+	const { document, error } = user
+		? useDocument('users', user.uid)
+		: { document: null, error: null }
 
 	const handleLogout = (e) => {
 		logout()
@@ -36,6 +42,7 @@ const Navbar = () => {
 					</Typography>
 				</Link>
 				<Typography>Hello, {user.displayName}</Typography>
+				<Typography>Credits: {document.credits}</Typography>
 				<Box
 					component='ul'
 					sx={{ display: 'flex', alignItems: 'center', gap: 3 }}
