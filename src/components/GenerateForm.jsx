@@ -28,7 +28,8 @@ export const GenerateForm = () => {
 	return (
 		<>
 			<Box
-				my={10}
+				mt={10}
+				mb={4}
 				component={'form'}
 				sx={{
 					display: 'flex',
@@ -60,6 +61,7 @@ export const GenerateForm = () => {
 					</Button>
 				</Tooltip>
 			</Box>
+
 			{response.isLoading && (
 				<Box
 					sx={{

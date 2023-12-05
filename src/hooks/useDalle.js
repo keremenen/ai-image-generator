@@ -2,7 +2,9 @@ import { useReducer, useState, useEffect } from 'react'
 import { useFirestore } from './useFirestore'
 
 import useAuthContext from './useAuthContext'
-import { timestamp } from '../firebase/config'
+import { database, timestamp } from '../firebase/config'
+import { doc, updateDoc } from 'firebase/firestore'
+import useDocument from './useDocument'
 
 const initialState = {
 	isLoading: false,
@@ -46,12 +48,24 @@ export const useDalle = () => {
 	const { user } = useAuthContext()
 	const [response, dispatch] = useReducer(dalleReducer, initialState)
 	const [isCancelled, setIsCancelled] = useState(false)
+	const { document, error } = user
+		? useDocument('users', user.uid)
+		: { document: null, error: null }
 
 	const { addDocument } = useFirestore('history')
 
 	const generateImages = async (prompt) => {
 		if (!prompt) return
 		dispatch({ type: 'IS_LOADING' })
+
+		if (document.credits < 0) {
+			dispatch({
+				type: 'ERROR',
+				payload:
+					'No more credits. Add credits to your account to be able to generate more images',
+			})
+			return
+		}
 
 		try {
 			// const response = await fetch(
@@ -80,6 +94,10 @@ export const useDalle = () => {
 			// 	url: image.url,
 			// 	id: Math.floor(Math.random() * 1_000_000),
 			// }))
+
+			//Remove 1 credit from users collection
+			const ref = doc(database, 'users', user.uid)
+			await updateDoc(ref, { credits: document.credits - 1 })
 
 			//Adding images to firebase history
 			addDocument({

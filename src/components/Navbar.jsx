@@ -42,7 +42,7 @@ const Navbar = () => {
 					</Typography>
 				</Link>
 				<Typography>Hello, {user.displayName}</Typography>
-				<Typography>Credits: {document.credits}</Typography>
+				{document && <Typography>Credits: {document.credits}</Typography>}
 				<Box
 					component='ul'
 					sx={{ display: 'flex', alignItems: 'center', gap: 3 }}
