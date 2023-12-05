@@ -9,34 +9,44 @@ import {
 import { database } from '../firebase/config'
 import { useEffect, useRef, useState } from 'react'
 
-const useCollection = (c, _q, orderIndex, orderType) => {
+const useCollection = (c, _customQuery, _orderByValue) => {
 	const [data, setData] = useState(null)
+	const [error, setError] = useState(null)
 
-	const q = useRef(_q).current
-	console.log(q)
+	const customQuery = useRef(_customQuery).current
+	const orderByValue = useRef(_orderByValue).current
 
 	useEffect(() => {
 		let ref = collection(database, c)
 
-		if (q) {
-			ref = query(ref, where(...q))
+		if (customQuery) {
+			ref = query(ref, where(..._customQuery))
 		}
 
-		if (orderIndex && orderType) {
-			ref = query(ref, where(...q), orderBy(orderIndex, orderType))
+		if (orderByValue) {
+			ref = query(ref, orderBy(...orderByValue))
 		}
 
-		const unsub = onSnapshot(ref, (snapshot) => {
-			let results = []
-			snapshot.docs.forEach((document) => {
-				results.push({ ...document.data(), id: document.id })
-			})
-			setData(results)
-		})
+		const unsub = onSnapshot(
+			ref,
+			(snapshot) => {
+				let results = []
+				snapshot.docs.forEach((document) => {
+					results.push({ ...document.data(), id: document.id })
+				})
+
+				setData(results)
+			},
+			(error) => {
+				console.log(error)
+				setError('Could not fetch the data!')
+			}
+		)
+
 		return () => unsub()
-	}, [c, q])
+	}, [c, query, orderBy])
 
-	return { data }
+	return { data, error }
 }
 
 export default useCollection

@@ -28,8 +28,7 @@ const History = () => {
 	const { data } = useCollection(
 		'history',
 		['uid', '==', user.uid],
-		'createdAt',
-		'desc'
+		'createdAt'
 	)
 	const { deleteDocument, response } = useFirestore('history')
 
