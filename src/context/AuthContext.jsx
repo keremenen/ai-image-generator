@@ -5,7 +5,7 @@ import { auth } from '../firebase/config'
 export const AuthContext = createContext()
 
 const authReducer = (state, action) => {
-	switch (action.type) {
+	switch (action.type) { 
 		case 'SIGNUP':
 			return { ...state, user: action.payload }
 		case 'LOGIN':
