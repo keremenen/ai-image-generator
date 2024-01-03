@@ -71,8 +71,6 @@ const Navbar = () => {
                     <Link to={'/history'}>
                         <Button>History</Button>
                     </Link>
-                    <Button disabled>Settings</Button>
-
                     <IconButton onClick={handleLogout}>
                         <LogoutIcon />
                     </IconButton>

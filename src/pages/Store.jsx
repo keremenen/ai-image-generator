@@ -29,7 +29,7 @@ const Store = () => {
                 }}
             >
                 <Link
-                    to='https://buy.stripe.com/dR67tVdMh5dReA05km'
+                    to='https://buy.stripe.com/7sIcOfdMh6hV1NefZ2'
                     target='_blank'
                 >
                     <Button
