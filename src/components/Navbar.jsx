@@ -12,14 +12,19 @@ import { IconButton } from '@mui/material'
 import useDocument from '../hooks/useDocument'
 
 const Navbar = () => {
+    //Import funkcji logout z hooka useLogout
     const { logout } = useLogout()
 
+    // Pobranie obiektu reprezentującego obecnie zalogowanego użytkownika
     const { user } = useAuthContext()
 
-    const { document, error } = user
+    // Pobranie dokumentu z firestore przedstawiającego obecnie zalogowanego użytklownika, jeśli nie istnieje to zwraca null
+
+    const { document } = user
         ? useDocument('users', user.uid)
         : { document: null, error: null }
 
+    // Funkcja uruchamiana po wciśnięciu buttona logout
     const handleLogout = (e) => {
         logout()
     }

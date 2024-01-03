@@ -1,10 +1,10 @@
-import { useReducer, useState, useEffect } from 'react'
-import { useFirestore } from './useFirestore'
+import { useReducer, useState, useEffect } from "react"
+import { useFirestore } from "./useFirestore"
 
-import useAuthContext from './useAuthContext'
-import { database, timestamp } from '../firebase/config'
-import { doc, updateDoc } from 'firebase/firestore'
-import useDocument from './useDocument'
+import useAuthContext from "./useAuthContext"
+import { database, timestamp } from "../firebase/config"
+import { doc, updateDoc } from "firebase/firestore"
+import useDocument from "./useDocument"
 
 const initialState = {
     isLoading: false,
@@ -15,7 +15,7 @@ const initialState = {
 
 const dalleReducer = (state, action) => {
     switch (action.type) {
-        case 'IS_LOADING':
+        case "IS_LOADING":
             return {
                 ...state,
                 isLoading: true,
@@ -23,7 +23,7 @@ const dalleReducer = (state, action) => {
                 images: null,
                 success: false,
             }
-        case 'IMAGES_GENERATED_SUCCESSFULLY':
+        case "IMAGES_GENERATED_SUCCESSFULLY":
             return {
                 ...state,
                 isLoading: false,
@@ -31,7 +31,7 @@ const dalleReducer = (state, action) => {
                 images: action.payload,
                 success: true,
             }
-        case 'ERROR':
+        case "ERROR":
             return {
                 ...state,
                 isLoading: false,
@@ -49,31 +49,31 @@ export const useDalle = () => {
     const [response, dispatch] = useReducer(dalleReducer, initialState)
     const [isCancelled, setIsCancelled] = useState(false)
     const { document, error } = user
-        ? useDocument('users', user.uid)
+        ? useDocument("users", user.uid)
         : { document: null, error: null }
 
-    const { addDocument } = useFirestore('history')
+    const { addDocument } = useFirestore("history")
 
     const generateImages = async (prompt) => {
         if (!prompt) return
-        dispatch({ type: 'IS_LOADING' })
+        dispatch({ type: "IS_LOADING" })
 
         if (document.credits <= 0) {
             dispatch({
-                type: 'ERROR',
+                type: "ERROR",
                 payload:
-                    'Brak kredytów. Doładuj konto by móc korzystać z aplikacji.',
+                    "Brak kredytów. Doładuj konto by móc korzystać z aplikacji.",
             })
             return
         }
 
         try {
             const response = await fetch(
-                'https://api.openai.com/v1/images/generations ',
+                "https://api.openai.com/v1/images/generations ",
                 {
-                    method: 'POST',
+                    method: "POST",
                     headers: {
-                        'Content-type': 'application/json',
+                        "Content-type": "application/json",
                         Authorization: `Bearer ${
                             import.meta.env.VITE_DALLE_API_KEY
                         }`,
@@ -81,8 +81,8 @@ export const useDalle = () => {
                     body: JSON.stringify({
                         prompt: `${prompt}`,
                         n: 5,
-                        model: 'dall-e-2',
-                        size: '512x512',
+                        model: "dall-e-2",
+                        size: "512x512",
                     }),
                 }
             )
@@ -90,7 +90,7 @@ export const useDalle = () => {
 
             if (!isCancelled) {
                 dispatch({
-                    type: 'IMAGES_GENERATED_SUCCESSFULLY',
+                    type: "IMAGES_GENERATED_SUCCESSFULLY",
                     payload: data.data,
                 })
             }
@@ -101,7 +101,7 @@ export const useDalle = () => {
             }))
 
             //Remove 1 credit from users collection
-            const ref = doc(database, 'users', user.uid)
+            const ref = doc(database, "users", user.uid)
             await updateDoc(ref, { credits: document.credits - 1 })
 
             //Adding images to firebase history
@@ -113,7 +113,7 @@ export const useDalle = () => {
             })
         } catch (error) {
             if (isCancelled) {
-                dispatch({ type: 'ERROR', payload: error.message })
+                dispatch({ type: "ERROR", payload: error.message })
             }
         }
     }

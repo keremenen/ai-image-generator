@@ -15,11 +15,17 @@ import { useTheme } from '@mui/material'
 import { createPortal } from 'react-dom'
 
 export const GenerateForm = () => {
+    // Referencja do obiektu theme - Material UI
     const theme = useTheme()
+
+    // Import funkcji generateImages oraz response z hooka useDalle
     const { generateImages, response } = useDalle()
+
+    // Stan komponentu za pomocą react.useState
     const [lightboxOpen, setLightboxOpen] = useState(false)
     const [prompt, setPrompt] = useState('')
 
+    // Funkcja uruchamiana przy zatwierdzeniu formularza
     const handleSubmit = async (e) => {
         e.preventDefault()
         generateImages(prompt)

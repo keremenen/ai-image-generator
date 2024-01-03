@@ -1,3 +1,4 @@
+// Wszystkie importy użyte w komponencie
 import {
     Alert,
     Box,
@@ -14,6 +15,7 @@ import styled from '@emotion/styled'
 import { useFirestore } from '../hooks/useFirestore'
 import useAuthContext from '../hooks/useAuthContext'
 
+// Ostylowany komponent Box (z dokumentacji Material UI)
 const SingleImageItem = styled(Box)(({ theme }) => ({
     width: '100%',
     transition: 'ease-in-out 200ms',
@@ -24,10 +26,16 @@ const SingleImageItem = styled(Box)(({ theme }) => ({
 }))
 
 const History = () => {
+    // Pobranie danych o zalogowanym użytkowniku za pomocą hooka useAuthContext
     const { user } = useAuthContext()
-    const { data } = useCollection('history', ['uid', '==', user.uid], 'createdAt')
-    const { deleteDocument, response } = useFirestore('history')
 
+    // Pobranie danych z kolekcji history na podstawie obecnie zalogowanego użytkownika
+    const { data } = useCollection('history', ['uid', '==', user.uid], 'createdAt')
+
+    // Import funkcji deleteDocument z hooka useFirestore, któremu przekazuję kolekcję history
+    const { deleteDocument } = useFirestore('history')
+
+    // Funkcja do usunięcia podanego elementu historii
     const handleDelete = (id) => {
         deleteDocument(id)
     }

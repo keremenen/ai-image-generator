@@ -14,13 +14,18 @@ import useSignup from '../hooks/useSignup'
 import { Link } from 'react-router-dom'
 
 const Signup = () => {
+    // Referencja do obiektu Theme - Material UI
     const theme = useTheme()
 
+    // Przechowywanie stanu komponentu za pomocą useState
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [displayName, setDisplayName] = useState('')
+
+    // Import funkcji signUp z hooka useSignup()
     const { signUp, error } = useSignup()
 
+    // Funkcja uruchamiana przy zatwierdzeniu formularza
     const handleSubmit = (e) => {
         e.preventDefault()
         signUp(displayName, email, password)

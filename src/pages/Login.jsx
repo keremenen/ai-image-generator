@@ -1,3 +1,4 @@
+//Importy
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
@@ -7,19 +8,23 @@ import Divider from '@mui/material/Divider'
 import InputAdornment from '@mui/material/InputAdornment'
 import MailOutlinedIcon from '@mui/icons-material/MailOutlined'
 import HttpsOutlinedIcon from '@mui/icons-material/HttpsOutlined'
-import AssignmentIndIcon from '@mui/icons-material/AssignmentInd'
 import { useTheme } from '@mui/material'
 import { useState } from 'react'
 import useLogin from '../hooks/useLogin'
 import { Link } from 'react-router-dom'
 
 const Login = () => {
+    // Referencja do obiektu Theme - Material UI
     const theme = useTheme()
 
+    // Przechowywanie stanu komponentu za pomocą useState
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    // Import funkcji login z hooka useLogin()
     const { login, error } = useLogin()
 
+    // Funkcja uruchamiana przy zatwierdzeniu formularza
     const handleLogin = (e) => {
         e.preventDefault()
         login(email, password)

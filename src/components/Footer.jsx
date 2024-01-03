@@ -1,10 +1,10 @@
 import Container from '@mui/material/Container'
-import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
-import theme from '../themes/theme'
 import { Paper } from '@mui/material'
 
+// Pobranie aktualnego roku do stopki
 const currentYear = new Date().getFullYear()
+
 const Footer = () => {
     return (
         <Paper
