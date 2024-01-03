@@ -19,7 +19,7 @@ const Store = () => {
                 variant={'h5'}
                 component={'h1'}
             >
-                Credit Store
+                Doładuj kredyty
             </Typography>
             <Box
                 sx={{
@@ -37,7 +37,7 @@ const Store = () => {
                         color='success'
                         fullWidth
                     >
-                        1 Credit
+                        1 Kredyt
                     </Button>
                 </Link>
                 <Link
@@ -49,7 +49,7 @@ const Store = () => {
                         color='success'
                         fullWidth
                     >
-                        10 Credits
+                        10 Kredytów
                     </Button>
                 </Link>
                 <Link
@@ -61,7 +61,7 @@ const Store = () => {
                         color='success'
                         fullWidth
                     >
-                        100 Credits
+                        100 Kredytów
                     </Button>
                 </Link>
 
@@ -71,7 +71,7 @@ const Store = () => {
                     disabled='true'
                     fullWidth
                 >
-                    Custom amount (not available yet)
+                    Własna ilość (niedostępne)
                 </Button>
             </Box>
         </Container>

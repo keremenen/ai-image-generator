@@ -55,10 +55,10 @@ const Navbar = () => {
                         fontSize={'14px'}
                         color={'gray'}
                     >
-                        Hello, {user.displayName}
+                        Witaj, {user.displayName}
                     </Typography>
                     {document && (
-                        <Typography>Credits: {document.credits}</Typography>
+                        <Typography>Kredyty: {document.credits}</Typography>
                     )}
                 </Box>
                 <Box
@@ -66,10 +66,10 @@ const Navbar = () => {
                     sx={{ display: 'flex', alignItems: 'center', gap: 3 }}
                 >
                     <Link to={'/store'}>
-                        <Button>Credit Store</Button>
+                        <Button>Doładuj kredyty</Button>
                     </Link>
                     <Link to={'/history'}>
-                        <Button>History</Button>
+                        <Button>Historia</Button>
                     </Link>
                     <IconButton onClick={handleLogout}>
                         <LogoutIcon />

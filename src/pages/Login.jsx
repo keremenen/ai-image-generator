@@ -80,7 +80,7 @@ const Login = () => {
                     />
                     <TextField
                         margin={'normal'}
-                        label={'Password'}
+                        label={'Hasło'}
                         variant={'outlined'}
                         type={'password'}
                         fullWidth
@@ -102,7 +102,7 @@ const Login = () => {
                         align={'right'}
                         variant={'subtitle2'}
                     >
-                        Fogot password?
+                        Zapomniałeś hasła?
                     </Typography>
                     <Box
                         mt={4}
@@ -125,7 +125,7 @@ const Login = () => {
                             Login
                         </Button>
                         {error && <Typography>{error}</Typography>}
-                        <Typography>Dont have an account?</Typography>
+                        <Typography>Nie masz konta?</Typography>
                         <Link to={'/signup'}>
                             <Button
                                 size={'large'}
@@ -133,7 +133,7 @@ const Login = () => {
                                 variant={'outlined'}
                                 fullWidth
                             >
-                                Sign up
+                                Zarejestruj
                             </Button>
                         </Link>
                     </Box>

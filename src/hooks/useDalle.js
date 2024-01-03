@@ -62,7 +62,7 @@ export const useDalle = () => {
             dispatch({
                 type: 'ERROR',
                 payload:
-                    'No more credits. Add credits to your account to be able to generate more images',
+                    'Brak kredytów. Doładuj konto by móc korzystać z aplikacji.',
             })
             return
         }

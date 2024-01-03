@@ -53,7 +53,7 @@ const Signup = () => {
                     variant={'h4'}
                     component={'h1'}
                 >
-                    SIGN UP
+                    Rejestracja
                 </Typography>
                 <Divider />
                 <Box
@@ -63,7 +63,7 @@ const Signup = () => {
                 >
                     <TextField
                         margin={'normal'}
-                        label={'Display name'}
+                        label={'Nazwa profilu'}
                         variant={'outlined'}
                         fullWidth
                         name={'name'}
@@ -100,7 +100,7 @@ const Signup = () => {
                     />
                     <TextField
                         margin={'normal'}
-                        label={'Password'}
+                        label={'Hasło'}
                         variant={'outlined'}
                         type={'password'}
                         fullWidth
@@ -122,7 +122,7 @@ const Signup = () => {
                         align={'right'}
                         variant={'subtitle2'}
                     >
-                        Fogot password?
+                        Zapomniałeś hasła?
                     </Typography>
                     <Box
                         mt={4}
@@ -142,10 +142,10 @@ const Signup = () => {
                                 width: '70%',
                             }}
                         >
-                            Sign up
+                            Zarejestruj
                         </Button>
                         {error && <Typography>{error}</Typography>}
-                        <Typography>Already have an account?</Typography>
+                        <Typography>Masz konto?</Typography>
                         <Link to='/login'>
                             <Button
                                 size={'large'}
@@ -153,7 +153,7 @@ const Signup = () => {
                                 variant={'outlined'}
                                 fullWidth
                             >
-                                Login
+                                Zaloguj
                             </Button>
                         </Link>
                     </Box>
