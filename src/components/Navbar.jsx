@@ -12,53 +12,74 @@ import { IconButton } from '@mui/material'
 import useDocument from '../hooks/useDocument'
 
 const Navbar = () => {
-	const { logout } = useLogout()
+    const { logout } = useLogout()
 
-	const { user } = useAuthContext()
+    const { user } = useAuthContext()
 
-	const { document, error } = user
-		? useDocument('users', user.uid)
-		: { document: null, error: null }
+    const { document, error } = user
+        ? useDocument('users', user.uid)
+        : { document: null, error: null }
 
-	const handleLogout = (e) => {
-		logout()
-	}
+    const handleLogout = (e) => {
+        logout()
+    }
 
-	return (
-		<AppBar
-			position={'static'}
-			sx={{ marginBottom: '40px', background: theme.palette.background.paper }}
-		>
-			<Toolbar
-				component={'nav'}
-				sx={{ justifyContent: 'space-between' }}
-			>
-				<Link to={'/'}>
-					<Typography
-						variant={'h6'}
-						color={'primary'}
-					>
-						AI IMAGE GENERATOR
-					</Typography>
-				</Link>
-				<Typography>Hello, {user.displayName}</Typography>
-				{document && <Typography>Credits: {document.credits}</Typography>}
-				<Box
-					component='ul'
-					sx={{ display: 'flex', alignItems: 'center', gap: 3 }}
-				>
-					<Link to={'/history'}>
-						<Button>History</Button>
-					</Link>
-					<Button disabled>Settings</Button>
+    return (
+        <AppBar
+            position={'static'}
+            sx={{
+                marginBottom: '40px',
+                background: theme.palette.background.paper,
+            }}
+        >
+            <Toolbar
+                component={'nav'}
+                sx={{ justifyContent: 'space-between' }}
+            >
+                <Link to={'/'}>
+                    <Typography
+                        variant={'h6'}
+                        color={'primary'}
+                    >
+                        AI IMAGE GENERATOR
+                    </Typography>
+                </Link>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Typography
+                        fontSize={'14px'}
+                        color={'gray'}
+                    >
+                        Hello, {user.displayName}
+                    </Typography>
+                    {document && (
+                        <Typography>Credits: {document.credits}</Typography>
+                    )}
+                </Box>
+                <Box
+                    component='ul'
+                    sx={{ display: 'flex', alignItems: 'center', gap: 3 }}
+                >
+                    <Link to={'/store'}>
+                        <Button>Credit Store</Button>
+                    </Link>
+                    <Link to={'/history'}>
+                        <Button>History</Button>
+                    </Link>
+                    <Button disabled>Settings</Button>
 
-					<IconButton onClick={handleLogout}>
-						<LogoutIcon />
-					</IconButton>
-				</Box>
-			</Toolbar>
-		</AppBar>
-	)
+                    <IconButton onClick={handleLogout}>
+                        <LogoutIcon />
+                    </IconButton>
+                </Box>
+            </Toolbar>
+        </AppBar>
+    )
 }
 
 export default Navbar

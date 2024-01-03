@@ -11,6 +11,7 @@ import AssignmentIndIcon from '@mui/icons-material/AssignmentInd'
 import { useTheme } from '@mui/material'
 import { useState } from 'react'
 import useLogin from '../hooks/useLogin'
+import { Link } from 'react-router-dom'
 
 const Login = () => {
     const theme = useTheme()
@@ -125,16 +126,16 @@ const Login = () => {
                         </Button>
                         {error && <Typography>{error}</Typography>}
                         <Typography>Dont have an account?</Typography>
-                        <Button
-                            size={'large'}
-                            color={'success'}
-                            variant={'outlined'}
-                            sx={{
-                                width: '70%',
-                            }}
-                        >
-                            Sign up
-                        </Button>
+                        <Link to={'/signup'}>
+                            <Button
+                                size={'large'}
+                                color={'success'}
+                                variant={'outlined'}
+                                fullWidth
+                            >
+                                Sign up
+                            </Button>
+                        </Link>
                     </Box>
                 </Box>
             </Box>

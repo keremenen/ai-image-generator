@@ -11,155 +11,156 @@ import AssignmentIndIcon from '@mui/icons-material/AssignmentInd'
 import { useTheme } from '@mui/material'
 import { useState } from 'react'
 import useSignup from '../hooks/useSignup'
+import { Link } from 'react-router-dom'
 
 const Signup = () => {
-	const theme = useTheme()
+    const theme = useTheme()
 
-	const [email, setEmail] = useState('')
-	const [password, setPassword] = useState('')
-	const [displayName, setDisplayName] = useState('')
-	const { signUp, error } = useSignup()
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [displayName, setDisplayName] = useState('')
+    const { signUp, error } = useSignup()
 
-	const handleSubmit = (e) => {
-		e.preventDefault()
-		signUp(displayName, email, password)
-	}
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        signUp(displayName, email, password)
+    }
 
-	return (
-		<Container
-			component={'main'}
-			maxWidth={'sm'}
-			sx={{
-				minHeight: '100vh',
-				display: 'flex',
-				flexDirection: 'column',
-				justifyContent: 'center',
-			}}
-		>
-			<Box
-				px={5}
-				py={7}
-				sx={{
-					display: 'flex',
-					flexDirection: 'column',
-					background: theme.palette.background.paper,
-					borderRadius: '25px',
-				}}
-			>
-				<Typography
-					mb={3}
-					textAlign={'center'}
-					variant={'h4'}
-					component={'h1'}
-				>
-					SIGN UP
-				</Typography>
-				<Divider />
-				<Box
-					component={'form'}
-					mt={2}
-					onSubmit={handleSubmit}
-				>
-					<TextField
-						margin={'normal'}
-						label={'Display name'}
-						variant={'outlined'}
-						fullWidth
-						name={'name'}
-						value={displayName}
-						onChange={(e) => setDisplayName(e.target.value)}
-						InputProps={{
-							sx: {
-								borderRadius: 4,
-							},
-							endAdornment: (
-								<InputAdornment position='end'>
-									<AssignmentIndIcon />
-								</InputAdornment>
-							),
-						}}
-					/>
-					<TextField
-						margin={'normal'}
-						label={'Email'}
-						variant={'outlined'}
-						fullWidth
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-						InputProps={{
-							sx: {
-								borderRadius: 4,
-							},
-							endAdornment: (
-								<InputAdornment position='end'>
-									<MailOutlinedIcon />
-								</InputAdornment>
-							),
-						}}
-					/>
-					<TextField
-						margin={'normal'}
-						label={'Password'}
-						variant={'outlined'}
-						type={'password'}
-						fullWidth
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						sx={{ borderRadius: '40' }}
-						InputProps={{
-							sx: {
-								borderRadius: 4,
-							},
-							endAdornment: (
-								<InputAdornment position='end'>
-									<HttpsOutlinedIcon />
-								</InputAdornment>
-							),
-						}}
-					/>
-					<Typography
-						align={'right'}
-						variant={'subtitle2'}
-					>
-						Fogot password?
-					</Typography>
-					<Box
-						mt={4}
-						gap={2}
-						sx={{
-							display: 'flex',
-							flexDirection: 'column',
-							alignItems: 'center',
-						}}
-					>
-						<Button
-							type={'submit'}
-							size={'large'}
-							color={'info'}
-							variant={'contained'}
-							sx={{
-								width: '70%',
-							}}
-						>
-							Sign up
-						</Button>
-						{error && <Typography>{error}</Typography>}
-						<Typography>Already have an account?</Typography>
-						<Button
-							size={'large'}
-							color={'success'}
-							variant={'outlined'}
-							sx={{
-								width: '70%',
-							}}
-						>
-							Login
-						</Button>
-					</Box>
-				</Box>
-			</Box>
-		</Container>
-	)
+    return (
+        <Container
+            component={'main'}
+            maxWidth={'sm'}
+            sx={{
+                minHeight: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+            }}
+        >
+            <Box
+                px={5}
+                py={7}
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    background: theme.palette.background.paper,
+                    borderRadius: '25px',
+                }}
+            >
+                <Typography
+                    mb={3}
+                    textAlign={'center'}
+                    variant={'h4'}
+                    component={'h1'}
+                >
+                    SIGN UP
+                </Typography>
+                <Divider />
+                <Box
+                    component={'form'}
+                    mt={2}
+                    onSubmit={handleSubmit}
+                >
+                    <TextField
+                        margin={'normal'}
+                        label={'Display name'}
+                        variant={'outlined'}
+                        fullWidth
+                        name={'name'}
+                        value={displayName}
+                        onChange={(e) => setDisplayName(e.target.value)}
+                        InputProps={{
+                            sx: {
+                                borderRadius: 4,
+                            },
+                            endAdornment: (
+                                <InputAdornment position='end'>
+                                    <AssignmentIndIcon />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <TextField
+                        margin={'normal'}
+                        label={'Email'}
+                        variant={'outlined'}
+                        fullWidth
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        InputProps={{
+                            sx: {
+                                borderRadius: 4,
+                            },
+                            endAdornment: (
+                                <InputAdornment position='end'>
+                                    <MailOutlinedIcon />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <TextField
+                        margin={'normal'}
+                        label={'Password'}
+                        variant={'outlined'}
+                        type={'password'}
+                        fullWidth
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        sx={{ borderRadius: '40' }}
+                        InputProps={{
+                            sx: {
+                                borderRadius: 4,
+                            },
+                            endAdornment: (
+                                <InputAdornment position='end'>
+                                    <HttpsOutlinedIcon />
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <Typography
+                        align={'right'}
+                        variant={'subtitle2'}
+                    >
+                        Fogot password?
+                    </Typography>
+                    <Box
+                        mt={4}
+                        gap={2}
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}
+                    >
+                        <Button
+                            type={'submit'}
+                            size={'large'}
+                            color={'info'}
+                            variant={'contained'}
+                            sx={{
+                                width: '70%',
+                            }}
+                        >
+                            Sign up
+                        </Button>
+                        {error && <Typography>{error}</Typography>}
+                        <Typography>Already have an account?</Typography>
+                        <Link to='/login'>
+                            <Button
+                                size={'large'}
+                                color={'success'}
+                                variant={'outlined'}
+                                fullWidth
+                            >
+                                Login
+                            </Button>
+                        </Link>
+                    </Box>
+                </Box>
+            </Box>
+        </Container>
+    )
 }
 
 export default Signup

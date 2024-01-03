@@ -19,7 +19,7 @@ const Store = () => {
                 variant={'h5'}
                 component={'h1'}
             >
-                Add more credits
+                Credit Store
             </Typography>
             <Box
                 sx={{
@@ -34,7 +34,7 @@ const Store = () => {
                 >
                     <Button
                         variant='outlined'
-                        color='warning'
+                        color='success'
                         fullWidth
                     >
                         1 Credit
@@ -46,7 +46,7 @@ const Store = () => {
                 >
                     <Button
                         variant='outlined'
-                        color='warning'
+                        color='success'
                         fullWidth
                     >
                         10 Credits
@@ -58,7 +58,7 @@ const Store = () => {
                 >
                     <Button
                         variant='outlined'
-                        color='warning'
+                        color='success'
                         fullWidth
                     >
                         100 Credits
