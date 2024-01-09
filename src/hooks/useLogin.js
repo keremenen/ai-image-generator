@@ -14,7 +14,10 @@ export const useLogin = () => {
             .then((response) => {
                 dispatch({ type: 'LOGIN', payload: response.user })
             })
-            .catch((error) => setError(`${error.message}`))
+            .catch((error) => {
+                console.dir(error)
+                setError(`Błąd: niepoprawny email lub hasło`)
+            })
     }
 
     return { login, error }
