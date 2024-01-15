@@ -33,8 +33,26 @@ export const useSignup = () => {
 
             // updateProfile(auth, { displayName })
         } catch (error) {
-            console.log(error.message)
-            setError('Błąd: Sprawdź wszystkie dane w formularzu')
+            switch (error.code) {
+                case 'auth/invalid-email':
+                    setError('Niepoprawny adres email')
+                    break
+                case 'auth/email-already-in-use':
+                    setError('Podany email jest już zarejestrowany')
+                    break
+                case 'auth/missing-email':
+                    setError('Nie podano adresu email')
+                    break
+                case 'auth/missing-password':
+                    setError('Nie podano hasła')
+                    break
+                case 'auth/weak-password':
+                    setError('Podane hasło jest za krótkie (min. 6 znaków)')
+                    break
+                default:
+                    setError('Błąd formularza, sprawdź poprawność danych')
+                    break
+            }
         }
     }
 
