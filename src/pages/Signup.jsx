@@ -69,6 +69,7 @@ const Signup = () => {
                     <TextField
                         margin={'normal'}
                         label={'Nazwa profilu'}
+                        required
                         variant={'outlined'}
                         fullWidth
                         name={'name'}
@@ -90,6 +91,7 @@ const Signup = () => {
                         label={'Email'}
                         variant={'outlined'}
                         fullWidth
+                        required
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         InputProps={{
@@ -109,6 +111,7 @@ const Signup = () => {
                         variant={'outlined'}
                         type={'password'}
                         fullWidth
+                        required
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         sx={{ borderRadius: '40' }}
